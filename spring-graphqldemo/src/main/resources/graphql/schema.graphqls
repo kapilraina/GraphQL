@@ -1,0 +1,43 @@
+type Query {
+    subjects: [Subject]
+    subjectsByCity(city: String): [Subject]
+}
+
+type Mutation {
+    addSubject(name: String, city: String): Subject
+}
+
+type Subscription {
+    subjectEventSubscription (subjectid: ID) : SubjectEvent
+     globalEventSubscription : SubjectEvent
+}
+
+
+type Subject {
+    id: ID
+    name: String
+    city: String
+    sessions: [SubjectSession]
+}
+
+type SubjectSession {
+    sessionid: ID
+    subjectid: Int
+    channel: String
+    active: Boolean
+    starttime: Float
+    endtime: Float
+    
+}
+
+type SubjectEvent {
+     subject: Subject,
+     type: SubjectEventType,
+     channel: String,
+     starttime: Float
+}
+
+enum SubjectEventType {
+        LOGIN
+        LOGOUT
+}
